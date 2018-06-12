@@ -1,0 +1,24 @@
+mat-toolbar {
+    height: 50px;
+    flex: 0 0 auto;
+}
+
+mat-toolbar a, mat-toolbar button {
+    color: white;
+}
+
+mat-sidenav-container {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+mat-sidenav {
+    min-width: 250px;
+}
+
+mat-sidenav-content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
