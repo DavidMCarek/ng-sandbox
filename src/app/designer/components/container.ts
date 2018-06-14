@@ -1,6 +1,7 @@
 export class Container implements Designer.Component {
   public readonly type = 'Container';
   public readonly displayType = 'Container';
+  public children: Designer.Component[];
 
   constructor() { }
 

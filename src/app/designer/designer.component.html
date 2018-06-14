@@ -4,14 +4,21 @@
       <mat-icon>add</mat-icon>
     </button>
     <button mat-icon-button color="accent" (click)="openDeleteComponentDialog()" matTooltip="Delete Component" matTooltipPosition="right"
-      [disabled]="isComponentSelected">
+      [disabled]="!isComponentSelected">
       <mat-icon>delete</mat-icon>
     </button>
-    <button mat-icon-button color="accent" (click)="openModifyGridDialog()" matTooltip="Modify Grid" matTooltipPosition="right">
+    <button mat-icon-button color="accent" (click)="openModifyGridDialog()" matTooltip="Modify Grid" matTooltipPosition="right"
+      [disabled]="!isComponentSelected">
       <mat-icon>view_quilt</mat-icon>
     </button>
-    <button mat-icon-button color="accent" (click)="openColorPickerDialog()" matTooltip="Pick Color" matTooltipPosition="right">
+    <button mat-icon-button color="accent" (click)="openColorPickerDialog()" matTooltip="Change Color" matTooltipPosition="right">
       <mat-icon>format_color_fill</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="openEditTextDialog()" matTooltip="Edit Text" matTooltipPosition="right">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="openChangeFontSizeDialog()" matTooltip="Change Font Size" matTooltipPosition="right">
+      <mat-icon>format_size</mat-icon>
     </button>
   </mat-drawer>
   <mat-drawer-content id="Designer">

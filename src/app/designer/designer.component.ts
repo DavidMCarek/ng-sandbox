@@ -55,7 +55,8 @@ export class DesignerComponent implements AfterViewInit {
         return;
       }
 
-      if (this.selectedComponent.length === 1) {
+      this.updateIsComponentSelected();
+      if (this.isComponentSelected && this.selectedComponent.length === 1) {
         (result as Designer.Component).appendToElement(this.selectedComponent);
         return;
       }
@@ -85,6 +86,14 @@ export class DesignerComponent implements AfterViewInit {
   }
 
   public openColorPickerDialog(): void {
+
+  }
+
+  public openEditTextDialog(): void {
+
+  }
+
+  public openChangeFontSizeDialog(): void {
 
   }
 
