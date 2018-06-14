@@ -1,17 +1,20 @@
-<main id="Designer">
-  <div id="Options">
-    <button mat-icon-button color="accent">
-      <mat-icon>view_column</mat-icon>
+<mat-drawer-container>
+  <mat-drawer id="Options" mode="side" opened="true">
+    <button mat-icon-button color="accent" (click)="openAddComponentDialog()" matTooltip="Add Component" matTooltipPosition="right">
+      <mat-icon>add</mat-icon>
     </button>
-  </div>
-  <div class="container">
-    <div class="container" style="max-height: 50px; background-color: #777;">
+    <button mat-icon-button color="accent" (click)="openDeleteComponentDialog()" matTooltip="Delete Component" matTooltipPosition="right"
+      [disabled]="isComponentSelected">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="openModifyGridDialog()" matTooltip="Modify Grid" matTooltipPosition="right">
+      <mat-icon>view_quilt</mat-icon>
+    </button>
+    <button mat-icon-button color="accent" (click)="openColorPickerDialog()" matTooltip="Pick Color" matTooltipPosition="right">
+      <mat-icon>format_color_fill</mat-icon>
+    </button>
+  </mat-drawer>
+  <mat-drawer-content id="Designer">
 
-    </div>
-    <div class="container" style="max-height: 50px; background-color: #6ea4a1;">
-
-    </div>
-
-
-  </div>
-</main>
+  </mat-drawer-content>
+</mat-drawer-container>

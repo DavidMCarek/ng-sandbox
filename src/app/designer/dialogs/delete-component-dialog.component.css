@@ -1,0 +1,8 @@
+div {
+    max-width: 17em;
+    text-align: center;
+}
+
+button:last-of-type {
+    float: right;
+}

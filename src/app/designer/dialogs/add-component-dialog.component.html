@@ -1,0 +1,16 @@
+<section>
+  <label>Component Type</label>
+  <mat-form-field>
+    <mat-select [(value)]="selected">
+      <mat-option *ngFor="let component of components" [value]="component">{{component.displayType}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</section>
+
+<button mat-button color="accent" (click)=onAddComponentClick()>
+  Add Component
+</button>
+
+<button mat-button (click)="onCancelClick()">
+  Cancel
+</button>
