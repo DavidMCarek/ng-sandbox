@@ -6,17 +6,21 @@ import { AddComponentDialogComponent } from './dialogs/add-component-dialog.comp
 import { CommonModule } from '@angular/common';
 import { ModifyGridDialogComponent } from './dialogs/modify-grid-dialog.component';
 import { DeleteComponentDialogComponent } from './dialogs/delete-component-dialog.component';
+import { ColorPickerDialogComponent } from './dialogs/color-picker-dialog.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
     AddComponentDialogComponent,
     DesignerComponent,
     ModifyGridDialogComponent,
-    DeleteComponentDialogComponent
+    DeleteComponentDialogComponent,
+    ColorPickerDialogComponent
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    ColorPickerModule
   ],
   exports: [
     DesignerComponent
@@ -24,7 +28,8 @@ import { DeleteComponentDialogComponent } from './dialogs/delete-component-dialo
   entryComponents: [
     AddComponentDialogComponent,
     ModifyGridDialogComponent,
-    DeleteComponentDialogComponent
+    DeleteComponentDialogComponent,
+    ColorPickerDialogComponent
   ]
 })
 export class DesignerModule { }

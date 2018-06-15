@@ -1,20 +1,16 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-delete-component-dialog',
   templateUrl: './delete-component-dialog.component.html',
   styleUrls: ['./delete-component-dialog.component.css']
 })
-export class DeleteComponentDialogComponent implements OnInit {
+export class DeleteComponentDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<DeleteComponentDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    public dialogRef: MatDialogRef<DeleteComponentDialogComponent>
   ) { }
-
-  ngOnInit() {
-  }
 
   public onDeleteClick(): void {
     this.dialogRef.close(true);

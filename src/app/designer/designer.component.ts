@@ -5,6 +5,7 @@ import * as $ from 'jquery';
 import { AddComponentDialogComponent } from './dialogs/add-component-dialog.component';
 import { DeleteComponentDialogComponent } from './dialogs/delete-component-dialog.component';
 import { ModifyGridDialogComponent } from './dialogs/modify-grid-dialog.component';
+import { ColorPickerDialogComponent } from './dialogs/color-picker-dialog.component';
 
 @Component({
   selector: 'app-designer',
@@ -24,7 +25,8 @@ export class DesignerComponent implements AfterViewInit {
   constructor(
     public addComponentDialog: MatDialog,
     public deleteComponentDialog: MatDialog,
-    public modifyGridDialog: MatDialog
+    public modifyGridDialog: MatDialog,
+    public colorPickerDialog: MatDialog
   ) { }
 
   ngAfterViewInit(): void {
@@ -95,7 +97,20 @@ export class DesignerComponent implements AfterViewInit {
   }
 
   public openColorPickerDialog(): void {
+    const dialogRef = this.colorPickerDialog.open(ColorPickerDialogComponent, {
+      data: {
+        color: this.selectedComponent.css('color'),
+        backgroundColor: this.selectedComponent.css('background-color')
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
 
+      this.selectedComponent.css('color', result.color);
+      this.selectedComponent.css('background-color', result.backgroundColor);
+    });
   }
 
   public openEditTextDialog(): void {

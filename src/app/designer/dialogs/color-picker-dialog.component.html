@@ -1,0 +1,9 @@
+<div>
+  <label>Color</label><input [(colorPicker)]="color" [style.background]="color"/>
+</div>
+<div>
+  <label>Background Color</label><input [(colorPicker)]="backgroundColor" [style.background]="backgroundColor"/>
+</div>
+
+<button mat-button color="accent" (click)="onSaveClick()">Save</button>
+<button mat-button (click)="onCancelClick()">Cancel</button>
