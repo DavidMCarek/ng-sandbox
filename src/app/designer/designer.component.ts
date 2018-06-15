@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 
 import { AddComponentDialogComponent } from './dialogs/add-component-dialog.component';
 import { DeleteComponentDialogComponent } from './dialogs/delete-component-dialog.component';
+import { ModifyGridDialogComponent } from './dialogs/modify-grid-dialog.component';
 
 @Component({
   selector: 'app-designer',
@@ -17,10 +18,13 @@ export class DesignerComponent implements AfterViewInit {
   private selectedComponent: JQuery<HTMLElement>;
 
   public isComponentSelected = false;
+  public isContainerSelected = false;
+  public isTextSelected = false;
 
   constructor(
     public addComponentDialog: MatDialog,
-    public deleteComponentDialog: MatDialog
+    public deleteComponentDialog: MatDialog,
+    public modifyGridDialog: MatDialog
   ) { }
 
   ngAfterViewInit(): void {
@@ -34,16 +38,10 @@ export class DesignerComponent implements AfterViewInit {
     });
 
     $(document).click(event => {
-      const isClickOnOptions = $(event.target).parents('#Options').length > 0 || $(event.target).is('#Options');
-      const isClickOnDialog = $(event.target).parents('mat-dialog-container').length > 0 || $(event.target).is('mat-dialog-container');
-      if (isClickOnOptions || isClickOnDialog) {
-        return;
-      }
-
-      $('#Designer .selected').removeClass('selected');
       if ($(event.target).parents('#Designer').length > 0 || $(event.target).is('#Designer')) {
+        $('#Designer .selected').removeClass('selected');
         this.selectedComponent = $(event.target).addClass('selected');
-        this.updateIsComponentSelected();
+        this.updateSelections();
       }
     });
   }
@@ -55,7 +53,7 @@ export class DesignerComponent implements AfterViewInit {
         return;
       }
 
-      this.updateIsComponentSelected();
+      this.updateSelections();
       if (this.isComponentSelected && this.selectedComponent.length === 1) {
         (result as Designer.Component).appendToElement(this.selectedComponent);
         return;
@@ -82,7 +80,18 @@ export class DesignerComponent implements AfterViewInit {
   }
 
   public openModifyGridDialog(): void {
+    const dialogRef = this.modifyGridDialog.open(ModifyGridDialogComponent, {
+      data: {
+        flexDirection: this.selectedComponent.css('flex-direction')
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
 
+      this.selectedComponent.css('flex-direction', result);
+    });
   }
 
   public openColorPickerDialog(): void {
@@ -97,7 +106,21 @@ export class DesignerComponent implements AfterViewInit {
 
   }
 
-  private updateIsComponentSelected() {
+  private updateSelections(): void {
+    this.updateIsComponentSelected();
+    this.updateIsContainerSelected();
+    this.updateIsTextSelected();
+  }
+
+  private updateIsComponentSelected(): void {
     this.isComponentSelected = $('#Designer .selected').length > 0;
+  }
+
+  private updateIsContainerSelected(): void {
+    this.isContainerSelected = $('#Designer .container.selected').length > 0;
+  }
+
+  private updateIsTextSelected(): void {
+    this.isTextSelected = $('#Designer .text.selected').length > 0;
   }
 }

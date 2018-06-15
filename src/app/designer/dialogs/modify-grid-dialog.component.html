@@ -1,3 +1,11 @@
-<p>
-  modify-grid-dialog works!
-</p>
+<div>
+  <label>Orientation</label>
+  <mat-form-field>
+    <mat-select [(value)]="selectedOrientation">
+      <mat-option *ngFor="let orientation of orientations" [value]="orientation">{{orientation.visualDirection}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<button mat-button color="accent" (click)="onSaveClick()">Save</button>
+<button mat-button (click)="onCancelClick()">Cancel</button>
