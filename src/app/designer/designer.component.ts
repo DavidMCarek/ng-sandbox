@@ -1,36 +1,50 @@
-import { AfterViewInit, Component, HostBinding } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { AfterViewInit, ChangeDetectorRef, Component, HostBinding, OnDestroy, AfterViewChecked } from '@angular/core';
 import * as $ from 'jquery';
+import { Subject } from 'rxjs';
+import 'rxjs/add/operator/takeUntil';
 
-import { AddComponentDialogComponent } from './dialogs/add-component-dialog.component';
-import { DeleteComponentDialogComponent } from './dialogs/delete-component-dialog.component';
-import { ModifyGridDialogComponent } from './dialogs/modify-grid-dialog.component';
-import { ColorPickerDialogComponent } from './dialogs/color-picker-dialog.component';
+import { OptionAvailability } from './option-availability';
+import { Option } from './option/option';
+import { OptionType } from './option/option-type';
+import { SelectedComponent } from './selectedComponent';
 
 @Component({
   selector: 'app-designer',
   templateUrl: './designer.component.html',
   styleUrls: ['./designer.component.css'],
 })
-export class DesignerComponent implements AfterViewInit {
+export class DesignerComponent implements AfterViewInit, OnDestroy {
   @HostBinding('class')
   private designerClass = 'router-child';
 
-  private selectedComponent: JQuery<HTMLElement>;
+  public selectedComponentSubject: Subject<SelectedComponent>;
+  public options: Option[];
 
-  public isComponentSelected = false;
-  public isContainerSelected = false;
-  public isTextSelected = false;
+  public optionAvailability = new OptionAvailability();
+
+  private unsubscribe = new Subject<void>();
 
   constructor(
-    public addComponentDialog: MatDialog,
-    public deleteComponentDialog: MatDialog,
-    public modifyGridDialog: MatDialog,
-    public colorPickerDialog: MatDialog
-  ) { }
+    private cdr: ChangeDetectorRef
+  ) {
+    this.options = [
+      new Option(OptionType.AddComponent, 'Add Component', this.optionAvailability.canAddChildComponent, 'add'),
+      new Option(OptionType.ModifyGrid, 'Modify Grid', this.optionAvailability.canModifyGrid, 'view_quilt'),
+      new Option(OptionType.DeleteComponent, 'Delete Component', this.optionAvailability.canDeleteComponent, 'delete'),
+      new Option(OptionType.ChangeColor, 'Change Color', this.optionAvailability.canChangeColor, 'format_color_fill'),
+      new Option(OptionType.EditText, 'Edit Text', this.optionAvailability.canEditText, 'edit'),
+      new Option(OptionType.ChangeFontSize, 'Change Font Size', this.optionAvailability.canChangeFontSize, 'format_size')
+    ];
+    this.selectedComponentSubject = new Subject();
+  }
 
   ngAfterViewInit(): void {
-    this.selectedComponent = $('#Designer');
+    this.selectedComponentSubject.takeUntil(this.unsubscribe).subscribe(component => {
+      this.optionAvailability.updateOptionsState(component);
+      this.cdr.detectChanges();
+    });
+
+    this.selectedComponentSubject.next(new SelectedComponent($('#Designer')));
 
     $(document).mousemove(event => {
       $('#Designer .hover').removeClass('hover');
@@ -42,100 +56,13 @@ export class DesignerComponent implements AfterViewInit {
     $(document).click(event => {
       if ($(event.target).parents('#Designer').length > 0 || $(event.target).is('#Designer')) {
         $('#Designer .selected').removeClass('selected');
-        this.selectedComponent = $(event.target).addClass('selected');
-        this.updateSelections();
+        this.selectedComponentSubject.next(new SelectedComponent($(event.target).addClass('selected')));
       }
     });
   }
 
-  public openAddComponentDialog(): void {
-    const dialogRef = this.addComponentDialog.open(AddComponentDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result) {
-        return;
-      }
-
-      this.updateSelections();
-      if (this.isComponentSelected && this.selectedComponent.length === 1) {
-        (result as Designer.Component).appendToElement(this.selectedComponent);
-        return;
-      }
-
-      this.selectedComponent = $('#Designer');
-      (result as Designer.Component).appendToElement(this.selectedComponent);
-    });
-  }
-
-  public openDeleteComponentDialog(): void {
-    const dialogRef = this.deleteComponentDialog.open(DeleteComponentDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result) {
-        return;
-      }
-
-      if (this.selectedComponent.is('#Designer')) {
-        return;
-      }
-
-      this.selectedComponent.remove();
-    });
-  }
-
-  public openModifyGridDialog(): void {
-    const dialogRef = this.modifyGridDialog.open(ModifyGridDialogComponent, {
-      data: {
-        flexDirection: this.selectedComponent.css('flex-direction')
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result) {
-        return;
-      }
-
-      this.selectedComponent.css('flex-direction', result);
-    });
-  }
-
-  public openColorPickerDialog(): void {
-    const dialogRef = this.colorPickerDialog.open(ColorPickerDialogComponent, {
-      data: {
-        color: this.selectedComponent.css('color'),
-        backgroundColor: this.selectedComponent.css('background-color')
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (!result) {
-        return;
-      }
-
-      this.selectedComponent.css('color', result.color);
-      this.selectedComponent.css('background-color', result.backgroundColor);
-    });
-  }
-
-  public openEditTextDialog(): void {
-
-  }
-
-  public openChangeFontSizeDialog(): void {
-
-  }
-
-  private updateSelections(): void {
-    this.updateIsComponentSelected();
-    this.updateIsContainerSelected();
-    this.updateIsTextSelected();
-  }
-
-  private updateIsComponentSelected(): void {
-    this.isComponentSelected = $('#Designer .selected').length > 0;
-  }
-
-  private updateIsContainerSelected(): void {
-    this.isContainerSelected = $('#Designer .container.selected').length > 0;
-  }
-
-  private updateIsTextSelected(): void {
-    this.isTextSelected = $('#Designer .text.selected').length > 0;
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 }

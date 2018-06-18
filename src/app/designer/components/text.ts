@@ -1,6 +1,9 @@
+import { Designer } from './component';
+import { ComponentType } from './component-type';
+
 export class Text implements Designer.Component {
-  public type = 'text';
-  public displayType = 'Text';
+  public type = ComponentType.Text;
+  public displayType = ComponentType.Text.toString();
 
   constructor() { }
 

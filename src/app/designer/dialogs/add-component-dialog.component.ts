@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 import { Components } from '../components/components';
+import { Designer } from '../components/component';
 
 @Component({
   selector: 'app-add-component-dialog',

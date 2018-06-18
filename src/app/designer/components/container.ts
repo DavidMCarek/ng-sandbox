@@ -1,7 +1,9 @@
+import { Designer } from './component';
+import { ComponentType } from './component-type';
+
 export class Container implements Designer.Component {
-  public readonly type = 'Container';
-  public readonly displayType = 'Container';
-  public children: Designer.Component[];
+  public readonly type = ComponentType.Container;
+  public readonly displayType = ComponentType.Container.toString();
 
   constructor() { }
 
