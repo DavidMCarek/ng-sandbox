@@ -1,0 +1,15 @@
+mat-form-field {
+    display: block;
+}
+
+mat-form-field textarea {
+    resize: both;
+}
+
+button:last-of-type {
+    float: right;
+}
+
+:host ::ng-deep .mat-form-field-infix {
+    width: 100%;
+}

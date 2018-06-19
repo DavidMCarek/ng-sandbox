@@ -28,12 +28,12 @@ export class DesignerComponent implements AfterViewInit, OnDestroy {
     private cdr: ChangeDetectorRef
   ) {
     this.options = [
-      new Option(OptionType.AddComponent, 'Add Component', this.optionAvailability.canAddChildComponent, 'add'),
-      new Option(OptionType.ModifyGrid, 'Modify Grid', this.optionAvailability.canModifyGrid, 'view_quilt'),
-      new Option(OptionType.DeleteComponent, 'Delete Component', this.optionAvailability.canDeleteComponent, 'delete'),
-      new Option(OptionType.ChangeColor, 'Change Color', this.optionAvailability.canChangeColor, 'format_color_fill'),
-      new Option(OptionType.EditText, 'Edit Text', this.optionAvailability.canEditText, 'edit'),
-      new Option(OptionType.ChangeFontSize, 'Change Font Size', this.optionAvailability.canChangeFontSize, 'format_size')
+      new Option(OptionType.AddComponent, this.optionAvailability.canAddChildComponent, 'add'),
+      new Option(OptionType.ModifyGrid, this.optionAvailability.canModifyGrid, 'view_quilt'),
+      new Option(OptionType.DeleteComponent, this.optionAvailability.canDeleteComponent, 'delete'),
+      new Option(OptionType.ChangeColor, this.optionAvailability.canChangeColor, 'format_color_fill'),
+      new Option(OptionType.EditText, this.optionAvailability.canEditText, 'edit'),
+      new Option(OptionType.ChangeFontSize, this.optionAvailability.canChangeFontSize, 'format_size')
     ];
     this.selectedComponentSubject = new Subject();
   }

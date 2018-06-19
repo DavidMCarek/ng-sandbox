@@ -1,8 +1,8 @@
 export enum OptionType {
-  AddComponent,
-  ModifyGrid,
-  DeleteComponent,
-  ChangeColor,
-  EditText,
-  ChangeFontSize
+  AddComponent = 'Add Component',
+  ModifyGrid = 'Modify Grid',
+  DeleteComponent = 'Delete Component',
+  ChangeColor = 'Change Color',
+  EditText = 'Edit Text',
+  ChangeFontSize = 'Change Font Size'
 }

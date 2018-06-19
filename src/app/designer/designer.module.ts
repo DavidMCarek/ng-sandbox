@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'ngx-color-picker';
 
 import { MaterialModule } from '../material.module';
@@ -25,7 +26,8 @@ import { OptionComponent } from './option/option.component';
   imports: [
     CommonModule,
     MaterialModule,
-    ColorPickerModule
+    ColorPickerModule,
+    FormsModule
   ],
   exports: [
     DesignerComponent

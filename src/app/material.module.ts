@@ -9,7 +9,8 @@ import {
   MatIconModule,
   MatTooltipModule,
   MatDialogModule,
-  MatSelectModule
+  MatSelectModule,
+  MatInputModule
 } from '@angular/material';
 
 const modules = [
@@ -22,7 +23,8 @@ const modules = [
   MatIconModule,
   MatTooltipModule,
   MatDialogModule,
-  MatSelectModule
+  MatSelectModule,
+  MatInputModule
 ];
 
 @NgModule({

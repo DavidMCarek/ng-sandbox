@@ -1,4 +1,6 @@
-<textarea [(value)]="text"></textarea>
+<mat-form-field>
+  <textarea matInput [(ngModel)]="text" [value]="text"></textarea>
+</mat-form-field>
 
 <button mat-button color="accent" (click)="onSaveClick()">Save</button>
 <button mat-button (click)="onCancelClick()">Cancel</button>
