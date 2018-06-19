@@ -12,6 +12,7 @@ import { EditTextDialogComponent } from './dialogs/edit-text-dialog.component';
 import { ModifyGridDialogComponent } from './dialogs/modify-grid-dialog.component';
 import { OptionDialogService } from './services/option-dialog.service';
 import { OptionComponent } from './option/option.component';
+import { ChangeFontSizeDialogComponent } from './dialogs/change-font-size-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { OptionComponent } from './option/option.component';
     DeleteComponentDialogComponent,
     ColorPickerDialogComponent,
     EditTextDialogComponent,
+    ChangeFontSizeDialogComponent,
     OptionComponent
   ],
   imports: [
@@ -37,7 +39,8 @@ import { OptionComponent } from './option/option.component';
     ModifyGridDialogComponent,
     DeleteComponentDialogComponent,
     ColorPickerDialogComponent,
-    EditTextDialogComponent
+    EditTextDialogComponent,
+    ChangeFontSizeDialogComponent
   ],
   providers: [
     OptionDialogService

@@ -8,6 +8,7 @@ import { DeleteComponentDialogComponent } from '../dialogs/delete-component-dial
 import { ModifyGridDialogComponent } from '../dialogs/modify-grid-dialog.component';
 import { ColorPickerDialogComponent } from '../dialogs/color-picker-dialog.component';
 import { EditTextDialogComponent } from '../dialogs/edit-text-dialog.component';
+import { ChangeFontSizeDialogComponent } from '../dialogs/change-font-size-dialog.component';
 
 @Injectable()
 export class OptionDialogService {
@@ -19,7 +20,8 @@ export class OptionDialogService {
     public deleteComponentDialog: MatDialog,
     public modifyGridDialog: MatDialog,
     public colorPickerDialog: MatDialog,
-    public editTextDialog: MatDialog
+    public editTextDialog: MatDialog,
+    public changeFontSizeDialog: MatDialog
   ) { }
 
   public set selectedComponent(selectedComponent: SelectedComponent) {
@@ -105,6 +107,17 @@ export class OptionDialogService {
   }
 
   public openChangeFontSizeDialog(): void {
+    const dialogRef = this.changeFontSizeDialog.open(ChangeFontSizeDialogComponent, {
+      data: {
+        fontSize: this._selectedComponent.element.css('font-size')
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
 
+      this._selectedComponent.element.css('font-size', result);
+    });
   }
 }
