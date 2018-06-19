@@ -8,6 +8,7 @@ import { OptionAvailability } from './option-availability';
 import { Option } from './option/option';
 import { OptionType } from './option/option-type';
 import { SelectedComponent } from './selectedComponent';
+import { OptionDialogService } from './services/option-dialog.service';
 
 @Component({
   selector: 'app-designer',
@@ -26,6 +27,7 @@ export class DesignerComponent implements AfterViewInit, OnDestroy {
   private unsubscribe = new Subject<void>();
 
   constructor(
+    public dialogService: OptionDialogService,
     private cdr: ChangeDetectorRef
   ) {
     this.options = [
@@ -41,6 +43,7 @@ export class DesignerComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.selectedComponentSubject.takeUntil(this.unsubscribe).subscribe(component => {
+      this.dialogService.selectedComponent = component;
       this.optionAvailability.updateOptionsState(component);
       this.cdr.detectChanges();
     });

@@ -1,6 +1,6 @@
 <mat-drawer-container>
   <mat-drawer id="Options" mode="side" opened="true">
-    <app-option *ngFor="let option of options" [option]="option" [selectedComponent]="selectedComponentSubject"></app-option>
+    <app-option *ngFor="let option of options" [option]="option" [selectedComponent]="selectedComponentSubject" (optionSelected)="dialogService.openOptionDialog($event)"></app-option>
   </mat-drawer>
   <mat-drawer-content id="Designer">
 

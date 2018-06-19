@@ -12,77 +12,101 @@ import { DeleteComponentDialogComponent } from '../dialogs/delete-component-dial
 import { EditTextDialogComponent } from '../dialogs/edit-text-dialog.component';
 import { ModifyGridDialogComponent } from '../dialogs/modify-grid-dialog.component';
 import { SelectedComponent } from '../selectedComponent';
+import { OptionType } from '../option/option-type';
 
 @Injectable()
 export class OptionDialogService {
 
-  private selectedComponent: SelectedComponent;
-  private unsubscribe = new Subject<void>();
+  private _selectedComponent: SelectedComponent;
 
   constructor(
     public matDialog: MatDialog
   ) { }
 
-  public subscribeToSelectedComponent(selectedComponent: Observable<SelectedComponent>) {
-    selectedComponent.takeUntil(this.unsubscribe).subscribe(component => this.selectedComponent = component);
+  public set selectedComponent(selectedComponent: SelectedComponent) {
+    this._selectedComponent = selectedComponent;
   }
 
-  public unsubscribeFromSelectedComponent() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
+  public openOptionDialog(optionType: OptionType) {
+    switch (optionType) {
+      case OptionType.AddComponent: {
+        this.openAddComponentDialog();
+        break;
+      }
+      case OptionType.ModifyGrid: {
+        this.openModifyGridDialog();
+        break;
+      }
+      case OptionType.DeleteComponent: {
+        this.openDeleteComponentDialog();
+        break;
+      }
+      case OptionType.ChangeColor: {
+        this.openColorPickerDialog();
+        break;
+      }
+      case OptionType.EditText: {
+        this.openEditTextDialog();
+        break;
+      }
+      case OptionType.ChangeFontSize: {
+        this.openChangeFontSizeDialog();
+        break;
+      }
+    }
   }
 
-  public openAddComponentDialog(): void {
+  private openAddComponentDialog(): void {
     const callback = result => {
       if (result) {
-        (result.component as Designer.Component).appendToElement(this.selectedComponent.element, result.data);
+        (result.component as Designer.Component).appendToElement(this._selectedComponent.element, result.data);
       }
     };
     const dialogRef = this.matDialog.open(AddComponentDialogComponent, { minWidth: '350px' });
     dialogRef.afterClosed().subscribe(callback);
   }
 
-  public openDeleteComponentDialog(): void {
+  private openDeleteComponentDialog(): void {
     const callback = result => {
       if (result) {
-        this.selectedComponent.element.remove();
+        this._selectedComponent.element.remove();
       }
     };
     const dialogRef = this.matDialog.open(DeleteComponentDialogComponent);
     dialogRef.afterClosed().subscribe(callback);
   }
 
-  public openModifyGridDialog(): void {
-    const data = { flexDirection: this.selectedComponent.element.css('flex-direction') };
+  private openModifyGridDialog(): void {
+    const data = { flexDirection: this._selectedComponent.element.css('flex-direction') };
     const callback = result => {
       if (result) {
-        this.selectedComponent.element.css('flex-direction', result);
+        this._selectedComponent.element.css('flex-direction', result);
       }
     };
     const dialogRef = this.matDialog.open(ModifyGridDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(callback);
   }
 
-  public openColorPickerDialog(): void {
+  private openColorPickerDialog(): void {
     const data = {
-      color: this.selectedComponent.element.css('color'),
-      backgroundColor: this.selectedComponent.element.css('background-color')
+      color: this._selectedComponent.element.css('color'),
+      backgroundColor: this._selectedComponent.element.css('background-color')
     };
     const callback = result => {
       if (result) {
-        this.selectedComponent.element.css('color', result.color);
-        this.selectedComponent.element.css('background-color', result.backgroundColor);
+        this._selectedComponent.element.css('color', result.color);
+        this._selectedComponent.element.css('background-color', result.backgroundColor);
       }
     };
     const dialogRef = this.matDialog.open(ColorPickerDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(callback);
   }
 
-  public openEditTextDialog(): void {
-    const data = { text: this.selectedComponent.element.text() };
+  private openEditTextDialog(): void {
+    const data = { text: this._selectedComponent.element.text() };
     const callback = result => {
       if (result) {
-        this.selectedComponent.element.text(result);
+        this._selectedComponent.element.text(result);
       }
     };
     const dialogRef = this.matDialog.open(EditTextDialogComponent, {
@@ -92,11 +116,11 @@ export class OptionDialogService {
     dialogRef.afterClosed().subscribe(callback);
   }
 
-  public openChangeFontSizeDialog(): void {
-    const data = { fontSize: this.selectedComponent.element.css('font-size') };
+  private openChangeFontSizeDialog(): void {
+    const data = { fontSize: this._selectedComponent.element.css('font-size') };
     const callback = result => {
       if (result) {
-        this.selectedComponent.element.css('font-size', result);
+        this._selectedComponent.element.css('font-size', result);
       }
     };
     const dialogRef = this.matDialog.open(ChangeFontSizeDialogComponent, { data: data });
