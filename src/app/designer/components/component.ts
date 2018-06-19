@@ -1,6 +1,9 @@
-import { ComponentType } from './component-type';
-
 export namespace Designer {
+  export enum ComponentType {
+    Container = 'Container',
+    Text = 'Text',
+    Designer = 'Designer'
+  }
   export interface Component {
     type: ComponentType;
     displayType: string;

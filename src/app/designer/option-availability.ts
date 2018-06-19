@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 
-import { ComponentType } from './components/component-type';
 import { SelectedComponent } from './selectedComponent';
+import { Designer } from './components/component';
 
 export class OptionAvailability {
 
@@ -31,26 +31,26 @@ export class OptionAvailability {
   }
 
   private updateCanAddChildComponent(component: SelectedComponent): boolean {
-    return component.type === ComponentType.Container || component.type === ComponentType.Designer;
+    return component.type === Designer.ComponentType.Container || component.type === Designer.ComponentType.Designer;
   }
 
   private updateCanModifyGrid(component: SelectedComponent): boolean {
-    return component.type === ComponentType.Container;
+    return component.type === Designer.ComponentType.Container;
   }
 
   private updateCanDeleteComponent(component: SelectedComponent): boolean {
-    return component.type !== ComponentType.Designer;
+    return component.type !== Designer.ComponentType.Designer;
   }
 
   private updateCanChangeColor(component: SelectedComponent): boolean {
-    return component.type !== ComponentType.Designer;
+    return component.type !== Designer.ComponentType.Designer;
   }
 
   private updateCanEditText(component: SelectedComponent): boolean {
-    return component.type === ComponentType.Text;
+    return component.type === Designer.ComponentType.Text;
   }
 
   private updateCanChangeFontSize(component: SelectedComponent): boolean {
-    return component.type === ComponentType.Text;
+    return component.type === Designer.ComponentType.Text;
   }
 }

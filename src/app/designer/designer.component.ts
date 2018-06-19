@@ -1,7 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, Component, HostBinding, OnDestroy, AfterViewChecked } from '@angular/core';
+import 'rxjs/add/operator/takeUntil';
+
+import { AfterViewInit, ChangeDetectorRef, Component, HostBinding, OnDestroy } from '@angular/core';
 import * as $ from 'jquery';
 import { Subject } from 'rxjs';
-import 'rxjs/add/operator/takeUntil';
 
 import { OptionAvailability } from './option-availability';
 import { Option } from './option/option';
