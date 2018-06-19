@@ -9,26 +9,34 @@ import { ColorPickerDialogComponent } from '../dialogs/color-picker-dialog.compo
 import { EditTextDialogComponent } from '../dialogs/edit-text-dialog.component';
 import { ChangeFontSizeDialogComponent } from '../dialogs/change-font-size-dialog.component';
 import { ComponentType } from '@angular/cdk/portal';
+import { Observable, Subject } from 'rxjs';
+import 'rxjs/add/operator/takeUntil';
 
 type AfterClosedCallback = (result: any) => any;
 
 @Injectable()
 export class OptionDialogService {
 
-  private _selectedComponent: SelectedComponent;
+  private selectedComponent: SelectedComponent;
+  private unsubscribe = new Subject<void>();
 
   constructor(
     public matDialog: MatDialog
   ) { }
 
-  public set selectedComponent(selectedComponent: SelectedComponent) {
-    this._selectedComponent = selectedComponent;
+  public subscribeToSelectedComponent(selectedComponent: Observable<SelectedComponent>) {
+    selectedComponent.takeUntil(this.unsubscribe).subscribe(component => this.selectedComponent = component);
+  }
+
+  public unsubscribeFromSelectedComponent() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   public openAddComponentDialog(): void {
     const callback = result => {
       if (result) {
-        (result as Designer.Component).appendToElement(this._selectedComponent.element);
+        (result as Designer.Component).appendToElement(this.selectedComponent.element);
       }
     };
     this.openDialog(AddComponentDialogComponent, null, callback);
@@ -37,17 +45,17 @@ export class OptionDialogService {
   public openDeleteComponentDialog(): void {
     const callback = result => {
       if (result) {
-        this._selectedComponent.element.remove();
+        this.selectedComponent.element.remove();
       }
     };
     this.openDialog(DeleteComponentDialogComponent, null, callback);
   }
 
   public openModifyGridDialog(): void {
-    const data = { flexDirection: this._selectedComponent.element.css('flex-direction') };
+    const data = { flexDirection: this.selectedComponent.element.css('flex-direction') };
     const callback = result => {
       if (result) {
-        this._selectedComponent.element.css('flex-direction', result);
+        this.selectedComponent.element.css('flex-direction', result);
       }
     };
     this.openDialog(ModifyGridDialogComponent, data, callback);
@@ -55,33 +63,33 @@ export class OptionDialogService {
 
   public openColorPickerDialog(): void {
     const data = {
-      color: this._selectedComponent.element.css('color'),
-      backgroundColor: this._selectedComponent.element.css('background-color')
+      color: this.selectedComponent.element.css('color'),
+      backgroundColor: this.selectedComponent.element.css('background-color')
     };
     const callback = result => {
       if (result) {
-        this._selectedComponent.element.css('color', result.color);
-        this._selectedComponent.element.css('background-color', result.backgroundColor);
+        this.selectedComponent.element.css('color', result.color);
+        this.selectedComponent.element.css('background-color', result.backgroundColor);
       }
     };
     this.openDialog(ColorPickerDialogComponent, data, callback);
   }
 
   public openEditTextDialog(): void {
-    const data = { text: this._selectedComponent.element.text() };
+    const data = { text: this.selectedComponent.element.text() };
     const callback = result => {
       if (result) {
-        this._selectedComponent.element.text(result);
+        this.selectedComponent.element.text(result);
       }
     };
     this.openDialog(EditTextDialogComponent, data, callback);
   }
 
   public openChangeFontSizeDialog(): void {
-    const data = { fontSize: this._selectedComponent.element.css('font-size') };
+    const data = { fontSize: this.selectedComponent.element.css('font-size') };
     const callback = result => {
       if (result) {
-        this._selectedComponent.element.css('font-size', result);
+        this.selectedComponent.element.css('font-size', result);
       }
     };
     this.openDialog(ChangeFontSizeDialogComponent, data, callback);

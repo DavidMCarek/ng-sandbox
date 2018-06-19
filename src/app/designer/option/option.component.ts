@@ -28,14 +28,14 @@ export class OptionComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.option.isEnabled.takeUntil(this.unsubscribe).subscribe(enabled => this.isEnabled = enabled);
-    this.selectedComponent.takeUntil(this.unsubscribe).subscribe(component => this.dialogService.selectedComponent = component);
+    this.dialogService.subscribeToSelectedComponent(this.selectedComponent);
   }
 
   ngOnDestroy(): void {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+    this.dialogService.unsubscribeFromSelectedComponent();
   }
-
 
   public onOptionClick() {
     switch (this.option.type) {
