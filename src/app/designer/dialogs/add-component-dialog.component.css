@@ -14,7 +14,7 @@ button:last-of-type {
 mat-form-field textarea {
     resize: both;
     min-width: -webkit-fill-available;
-    min-width: fill-available;
+    min-width: stretch;
 }
 
 :host ::ng-deep .text-area-form-field .mat-form-field-infix {
