@@ -1,4 +1,4 @@
-import { Designer } from './components/component';
+import { Designer } from '../components/component';
 
 export class AddComponentResult {
   public component: Designer.Component;

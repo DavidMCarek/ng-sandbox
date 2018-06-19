@@ -11,7 +11,7 @@ import { DeleteComponentDialogComponent } from '../dialogs/delete-component-dial
 import { EditTextDialogComponent } from '../dialogs/edit-text-dialog.component';
 import { ModifyGridDialogComponent } from '../dialogs/modify-grid-dialog.component';
 import { OptionType } from '../option/option-type';
-import { SelectedComponent } from '../selectedComponent';
+import { SelectedComponent } from '../models/selectedComponent';
 import { EditBordersDialogComponent } from '../dialogs/edit-borders-dialog.component';
 
 @Injectable()
@@ -137,7 +137,11 @@ export class OptionDialogService {
       borderRight: this._selectedComponent.element.css('border-right'),
       borderBottom: this._selectedComponent.element.css('border-bottom'),
       borderLeft: this._selectedComponent.element.css('border-left'),
-      borderRadius: this._selectedComponent.element.css('border-radius')
+
+      borderTopLeftRadius: this._selectedComponent.element.css('border-top-left-radius'),
+      borderTopRightRadius: this._selectedComponent.element.css('border-top-right-radius'),
+      borderBottomRightRadius: this._selectedComponent.element.css('border-bottom-right-radius'),
+      borderBottomLeftRadius: this._selectedComponent.element.css('border-bottom-left-radius')
     };
     const callback = result => {
       if (result) {
@@ -145,7 +149,11 @@ export class OptionDialogService {
         this._selectedComponent.element.css('border-right', result.borderRight);
         this._selectedComponent.element.css('border-bottom', result.borderBottom);
         this._selectedComponent.element.css('border-left', result.borderLeft);
-        this._selectedComponent.element.css('border-radius', result.borderRadius);
+
+        this._selectedComponent.element.css('border-top-left-radius', result.borderTopLeftRadius);
+        this._selectedComponent.element.css('border-top-right-radius', result.borderTopRightRadius);
+        this._selectedComponent.element.css('border-bottom-right-radius', result.borderBottomRightRadius);
+        this._selectedComponent.element.css('border-bottom-left-radius', result.borderBottomLeftRadius);
       }
     };
     const dialogRef = this.matDialog.open(EditBordersDialogComponent, { data: data });

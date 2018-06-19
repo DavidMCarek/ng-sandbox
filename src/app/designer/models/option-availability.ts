@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 
-import { SelectedComponent } from './selectedComponent';
-import { Designer } from './components/component';
+import { SelectedComponent } from '../models/selectedComponent';
+import { Designer } from '../components/component';
 
 export class OptionAvailability {
 

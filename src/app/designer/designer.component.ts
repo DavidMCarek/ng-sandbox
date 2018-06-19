@@ -4,10 +4,10 @@ import { AfterViewInit, ChangeDetectorRef, Component, HostBinding, OnDestroy } f
 import * as $ from 'jquery';
 import { Subject } from 'rxjs';
 
-import { OptionAvailability } from './option-availability';
+import { OptionAvailability } from './models/option-availability';
 import { Option } from './option/option';
 import { OptionType } from './option/option-type';
-import { SelectedComponent } from './selectedComponent';
+import { SelectedComponent } from './models/selectedComponent';
 import { OptionDialogService } from './services/option-dialog.service';
 
 @Component({

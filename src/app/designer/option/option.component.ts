@@ -3,7 +3,7 @@ import 'rxjs/add/operator/takeUntil';
 import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-import { SelectedComponent } from '../selectedComponent';
+import { SelectedComponent } from '../models/selectedComponent';
 import { Option } from './option';
 import { OptionType } from './option-type';
 

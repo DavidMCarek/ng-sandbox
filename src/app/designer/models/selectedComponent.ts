@@ -1,4 +1,4 @@
-import { Designer } from './components/component';
+import { Designer } from '../components/component';
 
 export class SelectedComponent {
   private _element: JQuery<HTMLElement>;

@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material';
 
 import { Components } from '../components/components';
 import { Designer } from '../components/component';
-import { AddComponentResult } from '../add-component-result';
+import { AddComponentResult } from '../models/add-component-result';
 
 @Component({
   selector: 'app-add-component-dialog',

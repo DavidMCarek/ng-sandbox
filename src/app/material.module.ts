@@ -10,7 +10,8 @@ import {
   MatTooltipModule,
   MatDialogModule,
   MatSelectModule,
-  MatInputModule
+  MatInputModule,
+  MatSlideToggleModule
 } from '@angular/material';
 
 const modules = [
@@ -24,7 +25,8 @@ const modules = [
   MatTooltipModule,
   MatDialogModule,
   MatSelectModule,
-  MatInputModule
+  MatInputModule,
+  MatSlideToggleModule
 ];
 
 @NgModule({
