@@ -5,3 +5,7 @@ label {
 mat-form-field {
     width: 100%
 }
+
+button:last-of-type {
+    float: right;
+}

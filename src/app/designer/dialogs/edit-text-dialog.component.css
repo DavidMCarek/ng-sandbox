@@ -4,8 +4,9 @@ mat-form-field {
 
 mat-form-field textarea {
     resize: both;
-    min-width: 325px;
     min-height: 125px;
+    min-width: -webkit-fill-available;
+    min-width: fill-available;
 }
 
 button:last-of-type {

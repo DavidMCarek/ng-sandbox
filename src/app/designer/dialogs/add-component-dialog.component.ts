@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material';
 
 import { Components } from '../components/components';
 import { Designer } from '../components/component';
+import { AddComponentResult } from '../add-component-result';
 
 @Component({
   selector: 'app-add-component-dialog',
@@ -13,6 +14,8 @@ export class AddComponentDialogComponent implements OnInit {
 
   public components: Designer.Component[];
   public selected: Designer.Component;
+  public result: AddComponentResult;
+  public ComponentType = Designer.ComponentType;
 
   constructor(
     public dialogRef: MatDialogRef<AddComponentDialogComponent>
@@ -21,6 +24,7 @@ export class AddComponentDialogComponent implements OnInit {
   ngOnInit(): void {
     this.components = Components.getAll();
     this.selected = this.components[0];
+    this.result = new AddComponentResult();
   }
 
   public onCancelClick(): void {
@@ -28,6 +32,7 @@ export class AddComponentDialogComponent implements OnInit {
   }
 
   public onAddComponentClick(): void {
-    this.dialogRef.close(this.selected);
+    this.result.component = this.selected;
+    this.dialogRef.close(this.result);
   }
 }

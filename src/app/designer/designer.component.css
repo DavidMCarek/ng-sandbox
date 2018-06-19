@@ -44,3 +44,7 @@ mat-drawer-container {
 :host ::ng-deep p {
     margin: 0px;
 }
+
+:host ::ng-deep img {
+    width: fit-content;
+}

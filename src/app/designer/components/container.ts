@@ -6,7 +6,7 @@ export class Container implements Designer.Component {
 
   constructor() { }
 
-  public appendToElement(element: JQuery<HTMLElement>): void {
+  public appendToElement(element: JQuery<HTMLElement>, data: any): void {
     element.append('<div class="container" style="flex-direction: column; padding: 25px;"></div>');
   }
 }

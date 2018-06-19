@@ -5,3 +5,7 @@ label {
 div {
     margin-bottom: 10px;
 }
+
+button:last-of-type {
+    float: right;
+}

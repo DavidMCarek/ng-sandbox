@@ -2,6 +2,21 @@ section label {
     display: block;
 }
 
-section > mat-form-field {
+mat-form-field {
+    width: 100%;
+    display: block;
+}
+
+button:last-of-type {
+    float: right;
+}
+
+mat-form-field textarea {
+    resize: both;
+    min-width: -webkit-fill-available;
+    min-width: fill-available;
+}
+
+:host ::ng-deep .text-area-form-field .mat-form-field-infix {
     width: 100%;
 }

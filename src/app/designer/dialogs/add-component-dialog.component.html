@@ -6,6 +6,18 @@
     </mat-select>
   </mat-form-field>
 </section>
+<section [ngSwitch]="selected.type">
+  <div *ngSwitchCase="ComponentType.Image">
+    <mat-form-field>
+      <input matInput [(ngModel)]="result.data.imageSrc" placeholder="Image Link"/>
+    </mat-form-field>
+  </div>
+  <div *ngSwitchCase="ComponentType.Text">
+    <mat-form-field class="text-area-form-field">
+      <textarea matInput [(ngModel)]="result.data.text" placeholder="Text Value"></textarea>
+    </mat-form-field>
+  </div>
+</section>
 
 <button mat-button color="accent" (click)=onAddComponentClick()>
   Add Component

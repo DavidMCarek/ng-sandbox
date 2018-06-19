@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { AddComponentDialogComponent } from '../dialogs/add-component-dialog.component';
-import { SelectedComponent } from '../selectedComponent';
-import { Designer } from '../components/component';
-import { DeleteComponentDialogComponent } from '../dialogs/delete-component-dialog.component';
-import { ModifyGridDialogComponent } from '../dialogs/modify-grid-dialog.component';
-import { ColorPickerDialogComponent } from '../dialogs/color-picker-dialog.component';
-import { EditTextDialogComponent } from '../dialogs/edit-text-dialog.component';
-import { ChangeFontSizeDialogComponent } from '../dialogs/change-font-size-dialog.component';
-import { ComponentType } from '@angular/cdk/portal';
-import { Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 
-type AfterClosedCallback = (result: any) => any;
+import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { Observable, Subject } from 'rxjs';
+
+import { Designer } from '../components/component';
+import { AddComponentDialogComponent } from '../dialogs/add-component-dialog.component';
+import { ChangeFontSizeDialogComponent } from '../dialogs/change-font-size-dialog.component';
+import { ColorPickerDialogComponent } from '../dialogs/color-picker-dialog.component';
+import { DeleteComponentDialogComponent } from '../dialogs/delete-component-dialog.component';
+import { EditTextDialogComponent } from '../dialogs/edit-text-dialog.component';
+import { ModifyGridDialogComponent } from '../dialogs/modify-grid-dialog.component';
+import { SelectedComponent } from '../selectedComponent';
 
 @Injectable()
 export class OptionDialogService {
@@ -36,10 +35,11 @@ export class OptionDialogService {
   public openAddComponentDialog(): void {
     const callback = result => {
       if (result) {
-        (result as Designer.Component).appendToElement(this.selectedComponent.element);
+        (result.component as Designer.Component).appendToElement(this.selectedComponent.element, result.data);
       }
     };
-    this.openDialog(AddComponentDialogComponent, null, callback);
+    const dialogRef = this.matDialog.open(AddComponentDialogComponent, { minWidth: '350px' });
+    dialogRef.afterClosed().subscribe(callback);
   }
 
   public openDeleteComponentDialog(): void {
@@ -48,7 +48,8 @@ export class OptionDialogService {
         this.selectedComponent.element.remove();
       }
     };
-    this.openDialog(DeleteComponentDialogComponent, null, callback);
+    const dialogRef = this.matDialog.open(DeleteComponentDialogComponent);
+    dialogRef.afterClosed().subscribe(callback);
   }
 
   public openModifyGridDialog(): void {
@@ -58,7 +59,8 @@ export class OptionDialogService {
         this.selectedComponent.element.css('flex-direction', result);
       }
     };
-    this.openDialog(ModifyGridDialogComponent, data, callback);
+    const dialogRef = this.matDialog.open(ModifyGridDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(callback);
   }
 
   public openColorPickerDialog(): void {
@@ -72,7 +74,8 @@ export class OptionDialogService {
         this.selectedComponent.element.css('background-color', result.backgroundColor);
       }
     };
-    this.openDialog(ColorPickerDialogComponent, data, callback);
+    const dialogRef = this.matDialog.open(ColorPickerDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(callback);
   }
 
   public openEditTextDialog(): void {
@@ -82,7 +85,11 @@ export class OptionDialogService {
         this.selectedComponent.element.text(result);
       }
     };
-    this.openDialog(EditTextDialogComponent, data, callback);
+    const dialogRef = this.matDialog.open(EditTextDialogComponent, {
+      minWidth: '325px',
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(callback);
   }
 
   public openChangeFontSizeDialog(): void {
@@ -92,11 +99,7 @@ export class OptionDialogService {
         this.selectedComponent.element.css('font-size', result);
       }
     };
-    this.openDialog(ChangeFontSizeDialogComponent, data, callback);
-  }
-
-  private openDialog(dialog: ComponentType<{}>, data: Object, callback: AfterClosedCallback) {
-    const dialogRef = this.matDialog.open(dialog, { data: data });
+    const dialogRef = this.matDialog.open(ChangeFontSizeDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(callback);
   }
 }

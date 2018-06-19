@@ -6,7 +6,7 @@ export class Text implements Designer.Component {
 
   constructor() { }
 
-  appendToElement(element: JQuery<HTMLElement>): void {
-    element.append('<p class="text">Some sample text</p>');
+  appendToElement(element: JQuery<HTMLElement>, data: any): void {
+    element.append('<p class="text">' + data.text + '</p>');
   }
 }
