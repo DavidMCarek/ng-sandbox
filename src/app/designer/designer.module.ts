@@ -13,6 +13,7 @@ import { ModifyGridDialogComponent } from './dialogs/modify-grid-dialog.componen
 import { OptionDialogService } from './services/option-dialog.service';
 import { OptionComponent } from './option/option.component';
 import { ChangeFontSizeDialogComponent } from './dialogs/change-font-size-dialog.component';
+import { EditBordersDialogComponent } from './dialogs/edit-borders-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ChangeFontSizeDialogComponent } from './dialogs/change-font-size-dialog
     ColorPickerDialogComponent,
     EditTextDialogComponent,
     ChangeFontSizeDialogComponent,
-    OptionComponent
+    OptionComponent,
+    EditBordersDialogComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { ChangeFontSizeDialogComponent } from './dialogs/change-font-size-dialog
     DeleteComponentDialogComponent,
     ColorPickerDialogComponent,
     EditTextDialogComponent,
-    ChangeFontSizeDialogComponent
+    ChangeFontSizeDialogComponent,
+    EditBordersDialogComponent
   ],
   providers: [
     OptionDialogService

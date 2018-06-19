@@ -32,9 +32,10 @@ export class DesignerComponent implements AfterViewInit, OnDestroy {
   ) {
     this.options = [
       new Option(OptionType.AddComponent, this.optionAvailability.canAddChildComponent, 'add'),
-      new Option(OptionType.ModifyGrid, this.optionAvailability.canModifyGrid, 'view_quilt'),
       new Option(OptionType.DeleteComponent, this.optionAvailability.canDeleteComponent, 'delete'),
       new Option(OptionType.ChangeColor, this.optionAvailability.canChangeColor, 'format_color_fill'),
+      new Option(OptionType.ModifyGrid, this.optionAvailability.canModifyGrid, 'view_quilt'),
+      new Option(OptionType.EditBorders, this.optionAvailability.canEditBorders, 'border_style'),
       new Option(OptionType.EditText, this.optionAvailability.canEditText, 'edit'),
       new Option(OptionType.ChangeFontSize, this.optionAvailability.canChangeFontSize, 'format_size')
     ];

@@ -4,5 +4,6 @@ export enum OptionType {
   DeleteComponent = 'Delete Component',
   ChangeColor = 'Change Color',
   EditText = 'Edit Text',
-  ChangeFontSize = 'Change Font Size'
+  ChangeFontSize = 'Change Font Size',
+  EditBorders = 'Edit Borders'
 }

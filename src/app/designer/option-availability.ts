@@ -11,6 +11,7 @@ export class OptionAvailability {
   public canChangeColor: BehaviorSubject<boolean>;
   public canEditText: BehaviorSubject<boolean>;
   public canChangeFontSize: BehaviorSubject<boolean>;
+  public canEditBorders: BehaviorSubject<boolean>;
 
   constructor() {
     this.canAddChildComponent = new BehaviorSubject<boolean>(false);
@@ -19,6 +20,7 @@ export class OptionAvailability {
     this.canChangeColor = new BehaviorSubject<boolean>(false);
     this.canEditText = new BehaviorSubject<boolean>(false);
     this.canChangeFontSize = new BehaviorSubject<boolean>(false);
+    this.canEditBorders = new BehaviorSubject<boolean>(false);
   }
 
   public updateOptionsState(component: SelectedComponent) {
@@ -28,6 +30,7 @@ export class OptionAvailability {
     this.canChangeColor.next(this.updateCanChangeColor(component));
     this.canEditText.next(this.updateCanEditText(component));
     this.canChangeFontSize.next(this.updateCanChangeFontSize(component));
+    this.canEditBorders.next(this.updateCanEditBorders(component));
   }
 
   private updateCanAddChildComponent(component: SelectedComponent): boolean {
@@ -52,5 +55,9 @@ export class OptionAvailability {
 
   private updateCanChangeFontSize(component: SelectedComponent): boolean {
     return component.type === Designer.ComponentType.Text;
+  }
+
+  private updateCanEditBorders(component: SelectedComponent): boolean {
+    return component.type === Designer.ComponentType.Container;
   }
 }

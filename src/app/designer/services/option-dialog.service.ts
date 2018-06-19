@@ -2,7 +2,6 @@ import 'rxjs/add/operator/takeUntil';
 
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Observable, Subject } from 'rxjs';
 
 import { Designer } from '../components/component';
 import { AddComponentDialogComponent } from '../dialogs/add-component-dialog.component';
@@ -11,8 +10,9 @@ import { ColorPickerDialogComponent } from '../dialogs/color-picker-dialog.compo
 import { DeleteComponentDialogComponent } from '../dialogs/delete-component-dialog.component';
 import { EditTextDialogComponent } from '../dialogs/edit-text-dialog.component';
 import { ModifyGridDialogComponent } from '../dialogs/modify-grid-dialog.component';
-import { SelectedComponent } from '../selectedComponent';
 import { OptionType } from '../option/option-type';
+import { SelectedComponent } from '../selectedComponent';
+import { EditBordersDialogComponent } from '../dialogs/edit-borders-dialog.component';
 
 @Injectable()
 export class OptionDialogService {
@@ -51,6 +51,10 @@ export class OptionDialogService {
       }
       case OptionType.ChangeFontSize: {
         this.openChangeFontSizeDialog();
+        break;
+      }
+      case OptionType.EditBorders: {
+        this.openEditBordersDialog();
         break;
       }
     }
@@ -124,6 +128,27 @@ export class OptionDialogService {
       }
     };
     const dialogRef = this.matDialog.open(ChangeFontSizeDialogComponent, { data: data });
+    dialogRef.afterClosed().subscribe(callback);
+  }
+
+  private openEditBordersDialog(): void {
+    const data = {
+      borderTop: this._selectedComponent.element.css('border-top'),
+      borderRight: this._selectedComponent.element.css('border-right'),
+      borderBottom: this._selectedComponent.element.css('border-bottom'),
+      borderLeft: this._selectedComponent.element.css('border-left'),
+      borderRadius: this._selectedComponent.element.css('border-radius')
+    };
+    const callback = result => {
+      if (result) {
+        this._selectedComponent.element.css('border-top', result.borderTop);
+        this._selectedComponent.element.css('border-right', result.borderRight);
+        this._selectedComponent.element.css('border-bottom', result.borderBottom);
+        this._selectedComponent.element.css('border-left', result.borderLeft);
+        this._selectedComponent.element.css('border-radius', result.borderRadius);
+      }
+    };
+    const dialogRef = this.matDialog.open(EditBordersDialogComponent, { data: data });
     dialogRef.afterClosed().subscribe(callback);
   }
 }
