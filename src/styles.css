@@ -29,3 +29,16 @@ app-root {
     display: flex;
     flex-direction: column;
 }
+
+.color-picker-input {
+    cursor: pointer;
+    border: 1px solid #949494;
+    height: 15px;
+    outline: none;
+    color: transparent;
+    vertical-align: top;
+}
+
+.cdk-overlay-pane .mat-dialog-container {
+    overflow: visible;
+}

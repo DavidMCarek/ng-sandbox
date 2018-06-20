@@ -1,26 +1,26 @@
 <section>
-  <h3>Border</h3>
-  <mat-slide-toggle [(ngModel)]="isAllSides"></mat-slide-toggle>
-  <label>Apply border to all sides</label>
-  <div *ngIf="isAllSides">
-    <mat-form-field>
-      <input matInput  placeholder="Border"/>
-    </mat-form-field>
-  </div>
-  <div *ngIf="!isAllSides">
+  <mat-tab-group>
+    <mat-tab label="Border">
+      <div>
+        <mat-form-field>
+          <mat-select placeholder="Style" [(value)]="selectedStyle">
+            <mat-option *ngFor="let style of styles" [value]="style">{{style}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="margin-left">
+          <input matInput placeholder="Border Width" [(ngModel)]="borderWidth"/>
+        </mat-form-field>
+      </div>
+      <div>
+        <label>Color</label>
+        <input class="color-picker-input" [(colorPicker)]="borderColor" [style.background]="borderColor"/>
+      </div>
+    </mat-tab>
+    <mat-tab label="Border Radius">
+      Border Radius Options
 
-  </div>
-</section>
-<section>
-  <h3>Border Radius</h3>
-  <mat-slide-toggle [(ngModel)]="isAllCorners"></mat-slide-toggle>
-  <label>Apply border radius to all corners</label>
-  <div *ngIf="isAllCorners">
-
-  </div>
-  <div *ngIf="!isAllCorners">
-
-  </div>
+    </mat-tab>
+  </mat-tab-group>
 </section>
 
 <button mat-button color="accent" (click)="onSaveClick()">Save</button>

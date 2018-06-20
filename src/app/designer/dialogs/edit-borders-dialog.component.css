@@ -2,3 +2,10 @@ button:last-of-type {
     float: right;
 }
 
+mat-tab-group label {
+    display: block;
+}
+
+.margin-left {
+    margin-left: 15px;
+}

@@ -11,7 +11,8 @@ import {
   MatDialogModule,
   MatSelectModule,
   MatInputModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatTabsModule
 } from '@angular/material';
 
 const modules = [
@@ -26,7 +27,8 @@ const modules = [
   MatDialogModule,
   MatSelectModule,
   MatInputModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatTabsModule
 ];
 
 @NgModule({
